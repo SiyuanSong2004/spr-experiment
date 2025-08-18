@@ -1,5 +1,5 @@
-item_id,sentence,with_question,question,answer1,answer2,question_delay
-T1,"Yesterday morning, the cat chased the mouse",true,"What did the cat chase?","Mouse","Bird",0
-T2,"In the library, the student read the book",false,"","","",0
-T3,"During lunch break, the teacher helped the children",true,"Who helped the children?","Teacher","Principal",0
-T4,"At the hospital, the doctor treated the patient",true,"Who treated the patient?","Doctor","Nurse",0 
+item_id,sentence,with_question,question,answer1,answer2,correct_answer,question_delay
+T1,"Yesterday morning, the cat chased the mouse",true,"Did the cat chase a mouse?","Yes","No",0,0
+T2,"In the library, the student read the book",false,"","","","",0
+T3,"During lunch break, the teacher helped the children",true,"Did the teacher help the children?","Yes","No",0,0
+T4,"At the hospital, the doctor treated the patient",true,"Did the doctor treat the patient?","Yes","No",0,0 

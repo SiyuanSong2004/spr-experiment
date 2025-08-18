@@ -246,12 +246,6 @@ var userInfo = {
     seed: null // For randomization
 };
 
-// Available stimuli files (hardcoded for static version)
-var availableStimuliFiles = [
-    { filename: 'list_a.csv', name: 'List A' },
-    { filename: 'list_b.csv', name: 'List B' },
-    { filename: 'example_stimuli.csv', name: 'Example Stimuli' }
-];
 
 // Function to load CSV from static files
 function loadCSVFromStaticFile(filename, callback) {
@@ -280,6 +274,11 @@ function loadCSVFromStaticFile(filename, callback) {
                 
                 // Convert question_delay to number
                 if (obj.question_delay) obj.question_delay = parseInt(obj.question_delay);
+                
+                // Convert correct_answer to number
+                if (obj.correct_answer !== undefined && obj.correct_answer !== '') {
+                    obj.correct_answer = parseInt(obj.correct_answer);
+                }
                 
                 data.push(obj);
             }
@@ -473,13 +472,13 @@ var instructions = {
 // Function to create practice trials from loaded train trials
 function createPracticeTrials() {
     var practiceTrials = [];
-    var stimuliToUse = loadedTrainTrials || practiceStimuli; // Fallback to default if loading fails
+    var stimuliToUse = loadedTrainTrials || defaultPracticeStimuli; // Fallback to config default if loading fails
     
     stimuliToUse.forEach(function(stimulus, index) {
         // Add fixation cross before each practice sentence
         practiceTrials.push({
             type: 'fixation-cross',
-            duration: 1000  // Standard duration: 500-1000ms
+            duration: experimentConfig.fixationCrossDuration || 1000
         });
         
         // Add ready screen
@@ -641,7 +640,7 @@ function createMainTrials() {
         // Add fixation cross before each sentence
         mainTrials.push({
             type: 'fixation-cross',
-            duration: 800  // Standard duration: 500-1000ms
+            duration: experimentConfig.fixationCrossDuration || 800
         });
         
         // Add ready screen
@@ -824,8 +823,7 @@ function displayResults() {
     }
 }
 
-// Data saving endpoint configuration (using same variable name as original)
-var DATA_SAVE_ENDPOINT = window.DATA_SAVE_ENDPOINT || window.REMOTE_DATA_ENDPOINT;
+// Data saving endpoint configuration is now in config.js
 
 // Function to save data to backend server
 function saveDataToServer(callback) {

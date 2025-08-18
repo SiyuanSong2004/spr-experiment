@@ -65,14 +65,14 @@ function processCSVData(csvData) {
                 // Immediate question
                 stimulus.question = row.question;
                 stimulus.options = [row.answer1, row.answer2];
-                stimulus.correct_answer = 0; // Default to first answer, can be enhanced later
+                stimulus.correct_answer = parseInt(row.correct_answer) || 0;
             } else {
                 // Delayed question
                 delayedQuestions.push({
                     originalItemId: stimulus.id,
                     question: row.question,
                     options: [row.answer1, row.answer2],
-                    correct_answer: 0,
+                    correct_answer: parseInt(row.correct_answer) || 0,
                     delay: questionDelay,
                     targetPosition: stimuli.length + questionDelay
                 });

@@ -1,2 +1,2 @@
-item_id,sentence,with_question,question,answer1,answer2,question_delay
-1,"The engineer designed a revolutionary bridge across the river",true,"What did the engineer design?","Bridge","Building",0
+item_id,sentence,with_question,question,answer1,answer2,correct_answer,question_delay
+1,"The engineer designed a revolutionary bridge across the river",true,"Did the engineer design a bridge?","Yes","No",0,0

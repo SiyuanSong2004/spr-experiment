@@ -1,11 +1,11 @@
-item_id,sentence,with_question,question,answer1,answer2,question_delay
-1,"The engineer designed a revolutionary bridge across the river",true,"What did the engineer design?","Bridge","Building",0
-2,"The cat slept peacefully on the warm sofa",false,"","","",0
-3,"The artist painted stunning portraits in her studio",true,"Where did the artist paint?","Studio","Gallery",3
-4,"The rain fell gently on the garden flowers",false,"","","",0
-5,"The doctor examined the patient very carefully",true,"How did the doctor examine?","Carefully","Quickly",0
-6,"Birds migrate south when winter approaches each year",false,"","","",0
-7,"The photographer captured amazing wildlife scenes in Africa",true,"Where were the scenes captured?","Africa","Asia",1
-8,"The ocean waves crash against the rocky shore",false,"","","",0
-9,"The pilot landed the airplane safely despite bad weather",true,"How did the pilot land?","Safely","Roughly",0
-10,"The garden looks beautiful with colorful spring flowers",false,"","","",0 
+item_id,sentence,with_question,question,answer1,answer2,correct_answer,question_delay
+1,"The engineer designed a revolutionary bridge across the river",true,"Did the engineer design a bridge?","Yes","No",0,0
+2,"The cat slept peacefully on the warm sofa",false,"","","","",0
+3,"The artist painted stunning portraits in her studio",true,"Did the artist paint in her studio?","Yes","No",0,3
+4,"The rain fell gently on the garden flowers",false,"","","","",0
+5,"The doctor examined the patient very carefully",true,"Did the doctor examine the patient carefully?","Yes","No",0,0
+6,"Birds migrate south when winter approaches each year",false,"","","","",0
+7,"The photographer captured amazing wildlife scenes in Africa",true,"Were the scenes captured in Africa?","Yes","No",0,1
+8,"The ocean waves crash against the rocky shore",false,"","","","",0
+9,"The pilot landed the airplane safely despite bad weather",true,"Did the pilot land the airplane safely?","Yes","No",0,0
+10,"The garden looks beautiful with colorful spring flowers",false,"","","","",0 
