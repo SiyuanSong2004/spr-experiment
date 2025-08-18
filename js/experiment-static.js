@@ -752,7 +752,7 @@ var debrief = {
     button_label_finish: 'Finish Experiment'
 };
 
-// Function to display and download results (static version)
+// Function to display and save results (with server saving)
 function displayResults() {
     var data = jsPsych.data.get();
     
@@ -808,9 +808,168 @@ function displayResults() {
         }
     }
     
+    // Check if server saving is configured
+    if (DATA_SAVE_ENDPOINT && DATA_SAVE_ENDPOINT !== null && DATA_SAVE_ENDPOINT !== '') {
+        // Show initial results with saving status
+        displayResultsWithSaving(totalTrials, avgReadingTime, comprehensionAccuracy);
+        
+        // Auto-save data to server
+        saveDataToServer(function(success, messageOrFilename) {
+            // Update the display with save result
+            updateSaveStatus(success, messageOrFilename);
+        });
+    } else {
+        // Fallback to download-only version
+        displayResultsDownloadOnly(totalTrials, avgReadingTime, comprehensionAccuracy);
+    }
+}
+
+// Data saving endpoint configuration (using same variable name as original)
+var DATA_SAVE_ENDPOINT = window.DATA_SAVE_ENDPOINT || window.REMOTE_DATA_ENDPOINT;
+
+// Function to save data to backend server
+function saveDataToServer(callback) {
     userInfo.experimentEndTime = new Date().toISOString();
     
-    // Display results with download option
+    // Prepare summary data for JSONL
+    var data = jsPsych.data.get();
+    
+    // Filter reading and comprehension data for summary
+    var readingData = data.filter(function(trial) {
+        return trial.trial_type === 'self-paced-reading' && 
+               trial.total_reading_time && 
+               trial.word_timings &&
+               trial.stimulus_id &&
+               trial.sentence;
+    });
+    
+    var comprehensionData = data.filter(function(trial) {
+        return trial.trial_type === 'html-keyboard-response' && 
+               trial.hasOwnProperty('correct') && 
+               trial.hasOwnProperty('response') &&
+               trial.stimulus_id &&
+               !trial.stimulus;
+    });
+    
+    // Calculate summary statistics
+    var totalReadingTime = 0;
+    var validTimes = 0;
+    readingData.values().forEach(function(trial) {
+        if (trial.total_reading_time && typeof trial.total_reading_time === 'number' && !isNaN(trial.total_reading_time)) {
+            totalReadingTime += trial.total_reading_time;
+            validTimes++;
+        }
+    });
+    var avgReadingTime = validTimes > 0 ? totalReadingTime / validTimes : 0;
+    
+    var correctAnswers = 0;
+    var totalQuestions = 0;
+    comprehensionData.values().forEach(function(trial) {
+        if (typeof trial.correct === 'boolean') {
+            totalQuestions++;
+            if (trial.correct) {
+                correctAnswers++;
+            }
+        }
+    });
+    var comprehensionAccuracy = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
+    
+    // Create data payload for backend
+    var dataPayload = {
+        user_id: userInfo.userId,
+        stimuli_file: userInfo.stimuliFile,
+        experiment_start_time: userInfo.experimentStartTime,
+        experiment_end_time: userInfo.experimentEndTime,
+        experiment_duration_ms: new Date(userInfo.experimentEndTime) - new Date(userInfo.experimentStartTime),
+        sentences_completed: readingData.count(),
+        average_reading_time_ms: Math.round(avgReadingTime),
+        comprehension_accuracy_percent: Math.round(comprehensionAccuracy * 100) / 100,
+        total_comprehension_questions: totalQuestions,
+        correct_comprehension_answers: correctAnswers,
+        seed: userInfo.seed,
+        full_data: data.values() // Include all trial data
+    };
+    
+    // Send data to remote server using XMLHttpRequest (following save_result_demo.js pattern)
+    console.log('Saving data to remote server for user:', userInfo.userId);
+    
+    var xhr = new XMLHttpRequest();
+    var endpoint = DATA_SAVE_ENDPOINT;
+    xhr.open(
+        "POST",
+        endpoint,
+        true
+    );
+    xhr.setRequestHeader("Content-Type", "application/json");
+    
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log("Data saved successfully:", xhr.responseText);
+            if (callback) callback(true, 'Data saved to remote server');
+        } else {
+            console.error("Request failed with status: " + xhr.status);
+            if (callback) callback(false, 'HTTP error: ' + xhr.status);
+        }
+    };
+    
+    xhr.onerror = function() {
+        console.error("Network error occurred");
+        if (callback) callback(false, 'Network error occurred');
+    };
+    
+    xhr.send(JSON.stringify([dataPayload]));
+}
+
+// Function to display initial results page
+function displayResultsWithSaving(totalTrials, avgReadingTime, comprehensionAccuracy) {
+    document.body.innerHTML = '<div style="text-align: center; padding: 40px;">' +
+                              '<h2>Experiment Complete!</h2>' +
+                              '<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">' +
+                              '<p><strong>Participant ID:</strong> ' + userInfo.userId + '</p>' +
+                              '<p><strong>Stimuli File:</strong> ' + userInfo.stimuliFile + '</p>' +
+                              '<p><strong>Sentences completed:</strong> ' + totalTrials + '</p>' +
+                              '<p><strong>Average reading time:</strong> ' + Math.round(avgReadingTime) + ' milliseconds</p>' +
+                              '<p><strong>Comprehension accuracy:</strong> ' + Math.round(comprehensionAccuracy) + '%</p>' +
+                              '</div>' +
+                              '<div id="saveStatus" style="margin: 20px 0;">' +
+                              '<p style="color: orange; font-weight: bold;">⏳ Saving data to server...</p>' +
+                              '</div>' +
+                              '<div>' +
+                              '<button onclick="downloadData()" class="jspsych-btn" style="margin: 10px;">Download CSV Backup</button>' +
+                              '<button onclick="retrySave()" class="jspsych-btn" style="margin: 10px;">Retry Save</button>' +
+                              '</div>' +
+                              '<p style="margin-top: 30px; color: #666; font-size: 14px;">Thank you for participating!</p>' +
+                              '</div>';
+}
+
+// Function to update save status
+function updateSaveStatus(success, messageOrFilename) {
+    var statusDiv = document.getElementById('saveStatus');
+    if (statusDiv) {
+        if (success) {
+            statusDiv.innerHTML = '<p style="color: green; font-weight: bold;">✓ Data saved successfully!</p>' +
+                                 '<p style="color: #666; font-size: 14px;">File: ' + messageOrFilename + '</p>';
+        } else {
+            statusDiv.innerHTML = '<p style="color: red; font-weight: bold;">✗ Save failed: ' + messageOrFilename + '</p>' +
+                                 '<p style="color: #666; font-size: 14px;">Please try again or download CSV backup.</p>';
+        }
+    }
+}
+
+// Function to retry saving
+function retrySave() {
+    updateSaveStatus(null, 'Retrying...');
+    document.getElementById('saveStatus').innerHTML = '<p style="color: orange; font-weight: bold;">⏳ Retrying save...</p>';
+    
+    saveDataToServer(function(success, messageOrFilename) {
+        updateSaveStatus(success, messageOrFilename);
+    });
+}
+
+// Function to display results with download only (no server saving)
+function displayResultsDownloadOnly(totalTrials, avgReadingTime, comprehensionAccuracy) {
+    userInfo.experimentEndTime = new Date().toISOString();
+    
     document.body.innerHTML = '<div style="text-align: center; padding: 40px;">' +
                               '<h2>Experiment Complete!</h2>' +
                               '<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">' +
@@ -828,7 +987,7 @@ function displayResults() {
                               '</div>';
 }
 
-// Function to download data as CSV
+// Function to download data as CSV (backup option)
 function downloadData() {
     var data = jsPsych.data.get().csv();
     var timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
