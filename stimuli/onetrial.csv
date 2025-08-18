@@ -1,0 +1,2 @@
+item_id,sentence,with_question,question,answer1,answer2,question_delay
+1,"The engineer designed a revolutionary bridge across the river",true,"What did the engineer design?","Bridge","Building",0

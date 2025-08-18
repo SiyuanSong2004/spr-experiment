@@ -1,0 +1,11 @@
+item_id,sentence,with_question,question,answer1,answer2,question_delay
+1,"The scientist who discovered the cure worked late every night",true,"Who worked late?","Scientist","Assistant",0
+2,"The book was lying on the table in the library",false,"","","",0
+3,"The musician played beautiful melodies at the concert hall",true,"Where did the musician play?","Concert hall","Recording studio",2
+4,"The weather today is absolutely perfect for hiking",false,"","","",0
+5,"The chef prepared an amazing dinner for the guests",true,"Who prepared dinner?","Chef","Waiter",0
+6,"Children love to play in the park during summer",false,"","","",0
+7,"The computer program crashed unexpectedly during the presentation",true,"When did the program crash?","During presentation","After presentation",1
+8,"The flowers bloom beautifully in spring season",false,"","","",0
+9,"The teacher explained the complex theory very clearly",true,"How did the teacher explain?","Clearly","Quickly",0
+10,"The movie was incredibly entertaining and well-made",false,"","","",0 

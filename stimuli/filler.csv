@@ -1,0 +1,16 @@
+item_id,sentence,with_question,question,answer1,answer2,question_delay
+F1,"In the morning, the bird sang beautiful songs",false,"","","",0
+F2,"At the park, children played exciting games",false,"","","",0
+F3,"During spring, flowers bloom bright colors",false,"","","",0
+F4,"Last night, the movie entertained many people",false,"","","",0
+F5,"On the table, the book contained interesting stories",false,"","","",0
+F6,"After the update, the computer works perfectly",false,"","","",0
+F7,"In the café, people drink fresh coffee",false,"","","",0
+F8,"From the mountain, tourists watched magnificent sunsets",false,"","","",0
+F9,"After work, music helps tired workers",false,"","","",0
+F10,"In the garden, the flowers attract busy bees",true,"What do the flowers attract?","Bees","Birds",0
+F11,"At the store, the cashier counted the money",false,"","","",0
+F12,"During dinner, the family shared funny stories",false,"","","",0
+F13,"In the classroom, the professor explained complex theories",true,"Who explained the theories?","Professor","Student",0
+F14,"On weekends, the artist painted colorful pictures",false,"","","",0
+F15,"At the concert, the musician played beautiful melodies",true,"What did the musician play?","Melodies","Songs",0 

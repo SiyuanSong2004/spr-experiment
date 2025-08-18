@@ -1,0 +1,253 @@
+/* Self-Paced Reading Experiment Styles - Minimal Design */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+/* Experiment container - Minimal */
+.jspsych-display-element,
+#jspsych-target {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fixation cross */
+.fixation-cross {
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    line-height: 1;
+    font-family: monospace;
+}
+
+/* Ready screen */
+.ready-screen {
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: white;
+    padding: 40px;
+    border-radius: 0;
+    border: none;
+    font-weight: normal;
+}
+
+.ready-screen p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Self-paced reading container - Minimal */
+.spr-container {
+    text-align: center;
+    padding: 0;
+    font-size: 24px;
+    line-height: 1.2;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+}
+
+.spr-word-display {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: white;
+}
+
+/* Current word - Minimal black text */
+.spr-current-word {
+    display: inline-block;
+    padding: 0;
+    background-color: white;
+    color: black;
+    border-radius: 0;
+    font-weight: normal;
+    font-size: 24px;
+    box-shadow: none;
+    border: none;
+}
+
+/* Instructions styling - Minimal */
+.jspsych-instructions {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 40px 20px;
+    background-color: white;
+    color: black;
+}
+
+.jspsych-instructions h2 {
+    color: black;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: normal;
+}
+
+.jspsych-instructions ul {
+    margin: 20px 0;
+    padding-left: 30px;
+}
+
+.jspsych-instructions li {
+    margin: 10px 0;
+}
+
+/* Button styling - Minimal */
+.jspsych-btn {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 0;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background-color 0.2s;
+}
+
+.jspsych-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.jspsych-btn:disabled {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* Option button styling for comprehension questions - Minimal */
+.option-left, .option-right {
+    position: relative;
+    min-width: 120px;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
+
+.option-left:before {
+    content: "⇧ ";
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.option-right:after {
+    content: " ⇧";
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Question styling - Minimal */
+.comprehension-question {
+    text-align: center;
+    font-size: 20px;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 0;
+    border: none;
+    color: black;
+}
+
+/* Progress and other elements - Hidden during main experiment */
+.progress-container {
+    display: none;
+}
+
+.progress-bar {
+    display: none;
+}
+
+/* Response feedback - Minimal */
+.feedback {
+    font-size: 18px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: normal;
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.feedback.correct {
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.feedback.incorrect {
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+/* Remove all decorative elements */
+.spr-word {
+    display: none;
+}
+
+.spr-word.revealed {
+    display: none;
+}
+
+.spr-word.previous {
+    display: none;
+}
+
+/* Loading indicator - Minimal */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f0f0f0;
+    border-top: 2px solid black;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .spr-container {
+        font-size: 20px;
+        padding: 0;
+    }
+    
+    .jspsych-instructions {
+        font-size: 16px;
+        padding: 20px 15px;
+    }
+    
+    .fixation-cross {
+        font-size: 40px;
+    }
+    
+    .spr-current-word {
+        font-size: 20px;
+    }
+} 
