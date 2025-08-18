@@ -818,8 +818,8 @@ function displayResults() {
             updateSaveStatus(success, messageOrFilename);
         });
     } else {
-        // Fallback to download-only version
-        displayResultsDownloadOnly(totalTrials, avgReadingTime, comprehensionAccuracy);
+        // Show results with local saving status
+        displayResultsWithLocalSaving(totalTrials, avgReadingTime, comprehensionAccuracy);
     }
 }
 

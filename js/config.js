@@ -20,7 +20,7 @@ var experimentConfig = {
 };
 
 // Data saving configuration
-var DATA_SAVE_ENDPOINT = null; // Set to your server endpoint URL if using server-side saving
+var DATA_SAVE_ENDPOINT = "https://noisy-comp-server-311aa565092d.herokuapp.com/api/submit_experiment/108"; // Set to your server endpoint URL if using server-side saving
 
 // Default practice stimuli (fallback if train_trial.csv fails to load)
 var defaultPracticeStimuli = [
