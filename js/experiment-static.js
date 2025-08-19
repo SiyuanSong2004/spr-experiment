@@ -269,9 +269,9 @@ function loadCSVFromStaticFile(filename, callback) {
                 }
                 
                 // Convert boolean fields
-                if (obj.with_question === 'true') obj.with_question = true;
-                if (obj.with_question === 'false') obj.with_question = false;
-                
+                if (obj.with_question === 'true' || obj.with_question === true) obj.with_question = true;
+                if (obj.with_question === 'false' || obj.with_question === false) obj.with_question = false;
+
                 // Convert question_delay to number
                 if (obj.question_delay) obj.question_delay = parseInt(obj.question_delay);
                 
