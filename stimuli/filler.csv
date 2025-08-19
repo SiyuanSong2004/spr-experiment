@@ -1,16 +1,16 @@
 item_id,sentence,with_question,question,answer1,answer2,correct_answer,question_delay
-F1,"In the morning, the bird sang beautiful songs",false,"","","","",0
-F2,"At the park, children played exciting games",false,"","","","",0
-F3,"During spring, flowers bloom bright colors",false,"","","","",0
-F4,"Last night, the movie entertained many people",false,"","","","",0
-F5,"On the table, the book contained interesting stories",false,"","","","",0
-F6,"After the update, the computer works perfectly",false,"","","","",0
-F7,"In the café, people drink fresh coffee",false,"","","","",0
-F8,"From the mountain, tourists watched magnificent sunsets",false,"","","","",0
-F9,"After work, music helps tired workers",false,"","","","",0
-F10,"In the garden, the flowers attract busy bees",true,"Do the flowers attract bees?","Yes","No",0,0
-F11,"At the store, the cashier counted the money",false,"","","","",0
-F12,"During dinner, the family shared funny stories",false,"","","","",0
-F13,"In the classroom, the professor explained complex theories",true,"Did the professor explain the theories?","Yes","No",0,0
-F14,"On weekends, the artist painted colorful pictures",false,"","","","",0
-F15,"At the concert, the musician played beautiful melodies",true,"Did the musician play melodies?","Yes","No",0,0 
+F1,"the bird sang beautifully",true,"Did the bird sing?","Yes","No",0,0
+F2,"children played exciting games",true,"Did the children play games?","Yes","No",0,0
+F3,"flowers bloom during spring",true,"Do flowers bloom in spring?","Yes","No",0,0
+F4,"the movie entertained many people",true,"Did the movie entertain people?","Yes","No",0,0
+F5,"on the table, the book lay open",true,"Was the book on the table?","Yes","No",0,0
+F6,"the computer works perfectly",true,"Does the computer work well?","Yes","No",0,0
+F7,"in the café, people relax quietly",true,"Do people relax in the café?","Yes","No",0,0
+F8,"tourists watched the sunset",true,"Did tourists watch the sunset?","Yes","No",0,0
+F9,"music helps tired workers",true,"Does music help workers?","Yes","No",0,0
+F10,"the flowers attract busy bees",true,"Do the flowers attract bees?","Yes","No",0,0
+F11,"the cashier smiled warmly",true,"Did the cashier smile?","Yes","No",0,0
+F12,"during dinner, the family laughed together",true,"Did the family laugh during dinner?","Yes","No",0,0
+F13,"the professor explained the theory",true,"Did the professor explain something?","Yes","No",0,0
+F14,"the artist painted colorful pictures",true,"Did the artist paint pictures?","Yes","No",0,0
+F15,"at the concert, the musician performed brilliantly",true,"Did the musician perform at the concert?","Yes","No",0,0 
